@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Chris Bay
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 @RequestMapping(value = "events")
 public class EventsController {
 
-    private static ArrayList<String> events = new ArrayList<>();
+    private static List<Event> events = new ArrayList<>();
 
     // Lives at /events
     @GetMapping("")
@@ -38,7 +40,7 @@ public class EventsController {
     // lives at /events/create
     @PostMapping("create")
     public String processCreateEventForm(@RequestParam String event) {
-        events.add(event);
+        events.add(new Event(event));
         return "redirect:";
     }
 
