@@ -1,5 +1,7 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.data.EventData;
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +18,13 @@ import java.util.ArrayList;
 @RequestMapping(value = "events")
 public class EventsController {
 
-    private static ArrayList<String> events = new ArrayList<>();
+
 
     // Lives at /events
     @GetMapping("")
     public String displayAllEvents(Model model) {
 
-        model.addAttribute("events", events);
+        model.addAttribute("events", EventData.getAll());
         model.addAttribute("title", "All Events");
 
         return "events/index";
@@ -37,9 +39,28 @@ public class EventsController {
 
     // lives at /events/create
     @PostMapping("create")
-    public String processCreateEventForm(@RequestParam String event) {
-        events.add(event);
+    public String processCreateEventForm(@RequestParam String eventName,
+                                         String eventDescription) {
+        EventData.add(new Event(eventName, eventDescription));
         return "redirect:";
+    }
+
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Events");
+        model.addAttribute("events", EventData.getAll());
+        return "events/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventsForm(@RequestParam(required=false) int[] eventIds) {
+        if(eventIds != null) {
+            for (int id : eventIds) {
+                EventData.remove(id);
+            }
+        }
+
+        return "redirect";
     }
 
 
