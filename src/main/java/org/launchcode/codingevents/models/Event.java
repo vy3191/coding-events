@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 
@@ -24,12 +22,31 @@ public class Event {
     @Email(message = "Invalid email")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotBlank(message = "Location is required.")
+    private String location;
+
+
+    @Min(value=0, message = "Number of attendees is required.")
+    private int numAttendees;
+
+    @Positive(message = "Price must be positive")
+    private double price;
+
+    private boolean registrationRequired;
+
+    private EventType type;
+
+
+    public Event(String name, String description, String contactEmail, String location, boolean registrationRequired, int numAttendees, double price, EventType type) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
-
+        this.location = location;
+        this.registrationRequired = registrationRequired;
+        this.numAttendees = numAttendees;
+        this.price = price;
+        this.type = type;
     }
 
     // no-arg constructor
@@ -64,6 +81,46 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Boolean getRegistrationRequired() {
+        return registrationRequired;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setRegistrationRequired(boolean registrationRequired) {
+        this.registrationRequired = registrationRequired;
+    }
+
+    public int getNumAttendees() {
+        return numAttendees;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setNumAttendees(int numAttendees) {
+        this.numAttendees = numAttendees;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     @Override

@@ -31,6 +31,45 @@
     </div>
 
     <div class="form-group">
+        <label>Type
+            <select th:field="${event.type}">
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.displayName}"
+                >
+                </option>
+            </select>
+        </label>
+        <p class="error" th:errors="${event.contactEmail}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Location
+            <input type="text" th:field="${event.location}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.location}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Registration Required
+            <input type="checkbox" th:field="${event.registrationRequired}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.registrationRequired}"></p>
+    </div>
+    <div class="form-group">
+        <label>Number of Attendees
+            <input type="number" th:field="${event.numAttendees}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.numAttendees}"></p>
+    </div>
+    <div class="form-group">
+        <label>Ticket price
+            <input type="text" th:field="${event.price}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.price}"></p>
+    </div>
+
+    <div class="form-group">
         <input type="submit" value="Create Event" class="btn btn-success">
     </div>
 
